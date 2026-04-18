@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vivek Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f5f7fb;
+  --text:#111;
+  --card:#ffffff;
+  --muted:#555;
+  --primary:#2563eb;
+  --nav:#111827;
+}
+
+body.dark{
+  --bg:#0b1220;
+  --text:#e5e7eb;
+  --card:#111827;
+  --muted:#94a3b8;
+  --primary:#60a5fa;
+  --nav:#020617;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter', sans-serif;
+  transition:0.3s ease;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* floating background blobs */
+.bg-blobs::before,
+.bg-blobs::after{
+  content:'';
+  position:fixed;
+  width:300px;
+  height:300px;
+  background:var(--primary);
+  opacity:0.08;
+  border-radius:50%;
+  filter:blur(60px);
+  z-index:-1;
+}
+
+.bg-blobs::before{
+  top:-50px;
+  left:-50px;
+}
+
+.bg-blobs::after{
+  bottom:-80px;
+  right:-80px;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+  background:var(--nav);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+nav ul{
+  display:flex;
+  gap:20px;
+  list-style:none;
+}
+
+nav ul li{
+  cursor:pointer;
+  font-size:14px;
+  opacity:0.8;
+}
+
+nav ul li:hover{
+  opacity:1;
+}
+
+.toggle{
+  cursor:pointer;
+  padding:6px 10px;
+  border-radius:8px;
+  background:#374151;
+  font-size:12px;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:100px 20px;
+}
+
+.hero h2{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.typing{
+  color:var(--primary);
+  font-weight:600;
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:600px;
+  margin:auto;
+}
+
+.btn{
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  background:var(--primary);
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  transform:scale(1);
+}
+
+.btn:hover{
+  transform:scale(1.08);
+}
+
+/* SECTIONS */
+section{
+  padding:70px 20px;
+  max-width:1000px;
+  margin:auto;
+  opacity:0;
+  transform:translateY(30px);
+  transition:all 0.6s ease;
+}
+
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.section-title{
+  font-size:26px;
+  margin-bottom:20px;
+}
+
+/* PROJECTS */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+}
+
+.card h3{
+  margin-bottom:10px;
+}
+
+.card a{
+  display:inline-block;
+  margin-top:10px;
+  color:var(--primary);
+  font-size:14px;
+}
+
+/* CONTACT */
+.contact{
+  text-align:center;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  background:var(--nav);
+  color:white;
+}
+
+/* mobile */
+@media(max-width:600px){
+  nav ul{display:none;}
+}
+</style>
+</head>
+<body class="bg-blobs">
+
+<nav>
+  <h1>Vivek Portfolio</h1>
+  <ul>
+    <li>Home</li>
+    <li>About</li>
+    <li>Projects</li>
+    <li>Contact</li>
+  </ul>
+  <div class="toggle" onclick="toggleDark()">Dark Mode</div>
+</nav>
+
+<div class="hero">
+  <h2>Hi, I'm Vivek 👋</h2>
+  <p>I am a <span class="typing" id="typing"></span></p>
+  <button class="btn">View Projects</button>
+</div>
+
+<section>
+  <h2 class="section-title">About Me</h2>
+  <p>Front-end developer building real-world systems like admin panels, dashboards and Firebase apps.</p>
+</section>
+
+<section>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects">
+
+    <div class="card">
+      <h3>Admin System</h3>
+      <p>Firebase approval system with admin panel.</p>
+      <a href="#">Live</a>
+    </div>
+
+    <div class="card">
+      <h3>Portfolio</h3>
+      <p>Personal portfolio website.</p>
+      <a href="#">Live</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="contact">
+  <h2 class="section-title">Contact</h2>
+  <p>Email: yourmail@gmail.com</p>
+</section>
+
+<footer>
+  © 2026 Vivek Portfolio
+</footer>
+
+<script>
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+// typing effect
+const texts=["Front-End Developer","Firebase Builder","UI Designer","Full Stack Learner"];
+let i=0, j=0;
+let current="";
+let isDeleting=false;
+
+function type(){
+  current=texts[i];
+  document.getElementById("typing").innerText=
+    current.substring(0,j);
+
+  if(!isDeleting && j<current.length){
+    j++;
+  }else if(isDeleting && j>0){
+    j--;
+  }else{
+    isDeleting=!isDeleting;
+    if(!isDeleting){
+      i=(i+1)%texts.length;
+    }
+  }
+  setTimeout(type,120);
+}
+type();
+
+// scroll reveal
+const sections=document.querySelectorAll("section");
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("show");
+    }
+  });
+},{threshold:0.2});
+
+sections.forEach(sec=>observer.observe(sec));
+</script>
+
+</body>
+</html>
